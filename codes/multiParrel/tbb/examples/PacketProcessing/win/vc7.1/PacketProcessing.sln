@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PacketProcessing", "PacketProcessing.vcproj", "{31A70F88-CD81-4773-9B36-D9E83E35F3AC}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{31A70F88-CD81-4773-9B36-D9E83E35F3AC}.Debug.ActiveCfg = Debug|Win32
+		{31A70F88-CD81-4773-9B36-D9E83E35F3AC}.Debug.Build.0 = Debug|Win32
+		{31A70F88-CD81-4773-9B36-D9E83E35F3AC}.Release.ActiveCfg = Release|Win32
+		{31A70F88-CD81-4773-9B36-D9E83E35F3AC}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,9 @@
+---- select_wait Matches (2 in 1 files) ----
+Pipe.c (scull):237
+        select_wait(&dev->inq, table); /* wait for data */
+        return 0;
+    }
+Pipe.c (scull):249
+        select_wait(&dev->outq, table); /* wait for free space */
+        return 0;
+    }

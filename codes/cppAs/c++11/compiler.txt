@@ -1,0 +1,1 @@
+-std=c++0x to your g++ command line. Or, to enable GNU extensions in addition to C++0x extensions, add -std=gnu++0x to your g++ command line. GCC 4.7 and later support -std=c++11 and -std=gnu++11 as well.

@@ -1,0 +1,66 @@
+<HTML>
+<BODY>
+
+<H2>Overview</H2>
+Parallel seismic simulation that demonstrates use of <TT>parallel_for</TT>.
+
+<H2>Files</H2>
+<DL>
+<DT><A HREF="SeismicSimulation.cpp">SeismicSimulation.cpp</A>
+<DD>Source code that does wave propagation.
+</DL>
+
+<H2>Directories</H2>
+<DL>
+<DT><A HREF="win/vc7.1">win/vc7.1</A>
+<DD>Contains Microsoft* Visual Studio* .NET 2003 workspace for building and running the example.
+<DT><A HREF="win/vc8">win/vc8</A>
+<DD>Contains Microsoft* Visual Studio* 2005 workspace for building and running the example.
+<DT><A HREF="linux">linux</A>
+<DD>Contains Linux* Makefile for building and running the example.
+  Uncomment the line &quot;<TT>#x64 = 64</TT>&quot; to build the
+  64-bit version.
+<DT><A HREF="mac/xcode">mac/xcode</A>
+<DD>Contains Mac OS* Xcode* workspace for building and running the example.
+</DL>
+
+<H2>Usage</H2>
+<DL>
+<DT><TT>seismic [<I>M</I>[:<I>N</I>]]</TT>
+<DD>For non-interactive mode, <I>M</I> and <I>N</I> are a range of numbers of threads to be used.
+    For interactive mode,  <I>N</I> is the number of threads to use while <I>M</I> indicates if
+    a separate thread will be used for the GUI (&gt;0) or not (0).  For example,
+    <TT>seismic&nbsp;1:3</TT> will use 3 threads for computation and a separate thread for
+    processing GUI events; this option may give better visible performance on a 4-processor
+    system when using GDI+ graphics.
+</DL>
+
+<H2>Hot keys</H2>
+The following hot keys can be used in interactive execution mode when the example is compiled with the graphical
+user interface:
+<DL>
+<dt>&lt;left mouse button&gt;
+<dd>Starts new seismic wave in place specified by mouse cursor.
+<dt>&lt;space&gt;
+<dd>Toggles between parallel and serial execution modes.
+<dt>&lt;p&gt;
+<dd>Enables parallel execution mode.
+<dt>&lt;s&gt;
+<dd>Enables serial execution mode.
+<dt>&lt;e&gt;
+<dd>Enables screen updates.
+<dt>&lt;d&gt;
+<dd>Disables screen updates <I>(strongly recommended when measuring performance or scalability)</I>.
+<dt>&lt;esc&gt;
+<dd>Stops execution.
+</DL>
+
+<HR>
+<p>
+Copyright 2007 Intel Corporation.  All Rights Reserved.
+</p>
+<p>
+* Other names and brands may be claimed as the property of others.
+</p>
+</BODY>
+</HTML>

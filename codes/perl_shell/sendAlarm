@@ -1,0 +1,52 @@
+#/usr/bin/perl
+#use strict;
+use Getopt::Long;        # Used to parse command line options
+sub Main
+{
+        my $netActIP = "";
+        my $agentIP = 0;
+        my $dn = "";
+        my $alarmID = "";
+        my $notifID = "";
+        my $boolError = GetOptions("NetActIP=s" => \$netActIP,
+                                   "AgentIP=s" => \$agentIP,
+                                   "DN=s" => \$dn,
+                                   "AlarmNum=s" => \$alarmID,
+                                   "NotifID=s" => \$notifID,
+                                   "h|help!" => \$boolHelp);
+        if ($boolHelp )
+        {
+         print "one example as the following:\n";
+         print "perl send.pl -NetActIP 10.9.237.131 -AgentIP 10.10.10.10 -DN DXA-1 -AlarmNum 1 -NotifID 1 \n"
+;
+         exit(0);
+        }
+        my $cmd="date '+%Y %m %d %H %M %S'";
+        my $strTime=`$cmd`;
+                                my @strLine=split(/ /,$strTime);
+                                my $strTimeStamp = "0";
+                                foreach $line (@strLine)
+        {
+                $strTimeStamp = $strTimeStamp . sprintf  "%02X", $line ;
+        }
+        $cmd = "snmptrap -v 1 -c public ";
+        $cmd = $cmd . $netActIP;
+        $cmd = $cmd . ":162 .1.3.6.1.4.1.94.7.1.3.0.1 ";
+        $cmd = $cmd . $agentIP;
+        $cmd = $cmd . " 6 1 0 .1.3.6.1.4.1.94.7.1.4.2.1.1 s \"";
+        $cmd = $cmd . $dn;
+        $cmd = $cmd . "\" .1.3.6.1.4.1.94.7.1.4.2.1.2 i 12345 .1.3.6.1.4.1.94.7.1.4.2.1.3 x \"";
+        $cmd = $cmd . $strTimeStamp;
+        $cmd = $cmd . "05\" .1.3.6.1.4.1.94.7.1.4.2.1.4 i ";
+        $cmd = $cmd . $alarmID;
+        $cmd = $cmd . " .1.3.6.1.4.1.94.7.1.4.2.1.5 s \"MANAGED OBJECT FAILED\" .1.3.6.1.4.1.94.7.1.4.2.1.6 i
+ 1 .1.3.6.1.4.1.94.7.1.4.2.1.7 s \"ADDITIONAL_TEXT AAI\" .1.3.6.1.4.1.94.7.1.4.2.1.8 i 0 .1.3.6.1.4.1.94.7.1.
+4.2.1.9 i 11 .1.3.6.1.4.1.94.7.1.4.2.1.10 i ";
+        $cmd = $cmd .  $notifID;
+        $cmd = $cmd . "\n";
+        print $cmd;
+        `$cmd`;
+}
+
+Main ();
+

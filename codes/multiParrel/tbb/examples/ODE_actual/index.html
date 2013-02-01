@@ -1,0 +1,75 @@
+<HTML>
+<BODY>
+
+<H2>Overview</H2>
+Incorporate the Intel&reg; TBB library into the Open Dynamics Engine*.
+
+Please see <A href="../ODE_simulate/index.html">../ODE_simulate/</A>
+for a standalone example.
+
+
+<H2>Files</H2>
+<DL>
+<DT><A HREF="ode-src-0.8-tbb.zip">ode-src-0.8-tbb.zip</A>
+<DD>Patch to incorporate the Intel&reg; TBB library
+into <TT>ode-src-8.0.zip</TT>.
+</DL>
+
+<H2>Build</H2>
+<OL>
+<LI>Download <TT>ode-src-8.0.zip</TT>
+    from <A HREF="http://www.ode.org">http://www.ode.org</A>.
+<LI>Unpack <TT>ode-src-8.0.zip</TT>.
+<LI>Unpack <TT>ode-src-8.0-tbb.zip</TT> into the same directory.
+  Overwrite any existing files.
+<LI>Follow platform-specific instructions:
+<DL>
+  <DT>Microsoft* Visual Studio* .NET 2003
+  <DD>Use <TT>ode-0.8\build\vs2003\ode-tbb-pfor.sln</TT> for
+  the <TT>parallel_for</TT> version
+  and <TT>ode-0.8\build\vs2003\ode-tbb-task.sln</TT> for the
+  task-based version.
+
+  <P>The resultant executable is located in
+  in <TT>ode-0.8\lib\{Debug,Release}Dll-tbb-{pfor,task}\test_buggy_objects.exe</TT>.
+  </P>
+
+  <DT>Microsoft* Visual Studio* 2005
+  <DD>Use <TT>ode-0.8\build\vs2005\ode-tbb-pfor.sln</TT> for
+  the <TT>parallel_for</TT> version
+  and <TT>ode-0.8\build\vs2005\ode-tbb-task.sln</TT> for the
+  task-based version.
+
+  <P>The resultant executable is located in
+  in <TT>ode-0.8\lib\{Debug,Release}Dll-tbb-{pfor,task}\test_buggy_objects.exe</TT>.
+  </P>
+
+  <DT>Linux* and Mac OS X*
+  <DD>Open a command prompt to the directory.
+  Use <TT>./configure&nbsp;--with-tbb=pfor</TT> for
+  the <TT>parallel_for</TT> version
+  and <TT>./configure&nbsp;--with-tbb=task</TT> for the task-based version.
+
+  <P>Run <TT>make</TT> to build ODE along with <TT>test_buggy_objects</TT>.</P>
+
+  <P>The resultant executable is located in
+  in <TT>ode-0.8/ode/test/test_buggy_objects</TT>.
+  </P>
+
+</OL>
+
+<H2>Usage</H2>
+Set the <TT>TBB_NUM_THREADS</TT> environment variable to control the
+number of threads TBB uses.
+
+
+<HR>
+<p>
+Copyright 2007 Intel Corporation.  All Rights Reserved.
+</p>
+<p>
+* Other names and brands may be claimed as the property of others.
+</p>
+</BODY>
+</HTML>
+

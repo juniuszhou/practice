@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryNewDelete", "MemoryNewDelete.vcproj", "{481BD0C3-DDAD-46F8-866C-8FCB9221B29C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{481BD0C3-DDAD-46F8-866C-8FCB9221B29C}.Debug.ActiveCfg = Debug|Win32
+		{481BD0C3-DDAD-46F8-866C-8FCB9221B29C}.Debug.Build.0 = Debug|Win32
+		{481BD0C3-DDAD-46F8-866C-8FCB9221B29C}.Release.ActiveCfg = Release|Win32
+		{481BD0C3-DDAD-46F8-866C-8FCB9221B29C}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
