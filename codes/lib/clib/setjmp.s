@@ -37,6 +37,7 @@ getfp:
 	leal	-20(%ebp), %eax
 	addl	$4, %eax
 	movl	%eax, -16(%ebp)
+	movl	$0, -12(%ebp)
 	movl	-16(%ebp), %eax
 	movl	%eax, -12(%ebp)
 	movl	$.LC0, %eax
@@ -44,9 +45,8 @@ getfp:
 	movl	%edx, 4(%esp)
 	movl	%eax, (%esp)
 	call	printf
-	movl	-12(%ebp), %eax
-	movl	(%eax), %edx
 	movl	$.LC1, %eax
+	movl	-12(%ebp), %edx
 	movl	%edx, 4(%esp)
 	movl	%eax, (%esp)
 	call	printf
@@ -59,10 +59,6 @@ getfp:
 	.cfi_endproc
 .LFE1:
 	.size	getfp, .-getfp
-	.section	.rodata
-.LC2:
-	.string	"setjmp is %x \n"
-	.text
 	.globl	setjmp
 	.type	setjmp, @function
 setjmp:
@@ -73,15 +69,44 @@ setjmp:
 	.cfi_offset 5, -8
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
+	pushl	%edi
+	pushl	%esi
 	pushl	%ebx
-	subl	$36, %esp
-	movl	$9, -12(%ebp)
-	leal	-12(%ebp), %edx
-	movl	$.LC2, %eax
-	movl	%edx, 4(%esp)
-	movl	%eax, (%esp)
-	.cfi_offset 3, -12
-	call	printf
+	subl	$92, %esp
+	movl	$0, %edi
+	.cfi_offset 3, -20
+	.cfi_offset 6, -16
+	.cfi_offset 7, -12
+	movl	$0, -28(%ebp)
+	movl	$0, -32(%ebp)
+	movl	$0, -36(%ebp)
+	movl	$0, -40(%ebp)
+	movl	$0, -44(%ebp)
+	movl	$0, -48(%ebp)
+	movl	$0, -52(%ebp)
+	movl	$0, %esi
+	movl	$0, %ebx
+	testl	%edi, %edi
+	je	.L4
+	movl	%ebx, 36(%esp)
+	movl	%esi, 32(%esp)
+	movl	-52(%ebp), %eax
+	movl	%eax, 28(%esp)
+	movl	-48(%ebp), %eax
+	movl	%eax, 24(%esp)
+	movl	-44(%ebp), %eax
+	movl	%eax, 20(%esp)
+	movl	-40(%ebp), %eax
+	movl	%eax, 16(%esp)
+	movl	-36(%ebp), %eax
+	movl	%eax, 12(%esp)
+	movl	-32(%ebp), %eax
+	movl	%eax, 8(%esp)
+	movl	-28(%ebp), %eax
+	movl	%eax, 4(%esp)
+	movl	%edi, (%esp)
+	call	dummy
+.L4:
 	movl	8(%ebp), %eax
 	leal	4(%eax), %ebx
 	call	getfp
@@ -123,9 +148,13 @@ setjmp:
 	movl	56(%eax), %eax
 	movl	%eax, 56(%edx)
 	movl	$0, %eax
-	addl	$36, %esp
+	addl	$92, %esp
 	popl	%ebx
 	.cfi_restore 3
+	popl	%esi
+	.cfi_restore 6
+	popl	%edi
+	.cfi_restore 7
 	popl	%ebp
 	.cfi_def_cfa 4, 4
 	.cfi_restore 5
@@ -135,7 +164,7 @@ setjmp:
 	.size	setjmp, .-setjmp
 	.comm	env,400,32
 	.section	.rodata
-.LC3:
+.LC2:
 	.string	" length is %d \n"
 	.text
 	.globl	main
@@ -150,7 +179,7 @@ main:
 	.cfi_def_cfa_register 5
 	andl	$-16, %esp
 	subl	$32, %esp
-	movl	$.LC3, %eax
+	movl	$.LC2, %eax
 	movl	$4, 4(%esp)
 	movl	%eax, (%esp)
 	call	printf

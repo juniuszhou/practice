@@ -10,6 +10,22 @@ int data[100];
 //how to define a int array type in c
 typedef int jmp_buf[100];
 
+/*
+typedef struct __JUMP_BUFFER {
+    unsigned long Ebp;
+    unsigned long Ebx;
+    unsigned long Edi;
+    unsigned long Esi;
+    unsigned long Esp;
+    unsigned long Eip;
+    unsigned long Registration;
+    unsigned long TryLevel;
+    unsigned long Cookie;
+    unsigned long UnwindFunc;
+    unsigned long UnwindData[6];
+} _JUMP_BUFFER;
+*/
+
 // a simple implementation of setjmp
 /**/
 #define _JBFP 1
@@ -25,14 +41,7 @@ static void dummy(int a,int b,int c,int d,
 int getfp()
 {
 int arg;
-arg = 23;
-int addr = (int)(&arg + _JBFP);
-int k = NULL;
-k = (int)((int*)addr);
-
-printf("framepointer is %x\n", addr);
-printf("framepointer are %x\n", k);
-
+//return setjmp's bp's value
 return ((int)(&arg + _JBFP));
 }
 
@@ -40,10 +49,8 @@ int setjmp(jmp_buf env)
 {
 register int a=0,b=0,c=0,d=0,e=0;
 register int f=0,g=0,h=0,i=0,j=0;
-int t = 9;
-printf("setjmp is %x \n",(int)&t);
-	
-//if (a) dummy(a,b,c,d,e,f,g,h,i,j);
+
+if (a) dummy(a,b,c,d,e,f,g,h,i,j);
 env[1] = getfp();
 
 //destination is global variable env array's second item's address
