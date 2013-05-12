@@ -1,5 +1,5 @@
-double ComputeEntropy(vector <vector <string> > remain_state, string attribute, 
-string value,bool ifparent)
+
+double ComputeEntropy(vector <vector <string> > remain_state, string attribute,string value,bool ifparent)
 {   
     vector<int> count (2,0);   
     unsigned int i,j;   
