@@ -1,6 +1,6 @@
 6
-weather 3
-a b c
+weather 6
+a b c d e f
 temp 2
 1 2
 warm 2

@@ -21,11 +21,13 @@ double ComputeEntropy(vector <vector <string> > remain_state, string attribute,s
     if(count[0] == 0 || count[1] == 0 ) return 0;//???????????   
     //????? ??[+count[0],-count[1]],log2???????????????   
     double sum = count[0] + count[1];   
-    double entropy = -count[0]/sum*log(count[0]/sum)/log(2.0) - count[1]/sum*log(count[1]/sum)/log(2.0);   
+    double entropy = -count[0]/sum*log(count[0]/sum)/log(2.0) 
+        - count[1]/sum*log(count[1]/sum)/log(2.0);   
     return entropy;   
 }   
 
-Node * BulidDecisionTreeDFS(Node * p, vector <vector <string> > remain_state, vector <string> remain_attribute){   
+Node * BulidDecisionTreeDFS(Node * p, vector <vector <string> > remain_state,
+    vector <string> remain_attribute){   
     //if(remain_state.size() > 0){   
         //printv(remain_state);   
     //}   

@@ -127,10 +127,14 @@ return true;
 }
 
 //ns is a negative sample.
+//h is an item in special hypothesis
 bool NagativeisConsistent(HypoValue h, HypoValue ns)
 {
 for (int i=0; i<g_Hypo.num; i++)
 {
+// if at least one attribute is different, or not coverred
+// then we think the negative case is consistent, because we
+// can recognize it.
    if (h.value[i]!=ALL && h.value[i]!=ns.value[i])
     return true;
 }
@@ -166,10 +170,12 @@ return false;
 }
 
 // 把s的所有的极小泛化式h加入到S中，并且满足h与d一致，而且G的某个成员比h更一般
-//s is a sample in most special hypo
+//s is a sample in most special hypo, d is current positive case
 void MiniGeneral(HypoValue s, HypoValue d)
 {
 HypoValue* h = new HypoValue();
+
+//for every attribute, find more general like merge operation
 for (int i=0; i<g_Hypo.num; i++)
 {
    if (s.value[i]==NUL)
@@ -181,6 +187,9 @@ for (int i=0; i<g_Hypo.num; i++)
    else
     h->value[i] = d.value[i];
 }
+
+//if in general hypothesis set, there is an item more general than h
+//then push it in special hypothesis.
 if (GMemberMoreGeneral(*h))
    g_S.push_front(h);
 else
@@ -249,7 +258,7 @@ for (it=g_S.begin(); it!=g_S.end();)
 }
 }
 
-// S的某个成员是否比h更特殊
+// if in special hypothesis, there is one more special
 bool SMemberMoreSpecial(HypoValue h)
 {
 int i;
@@ -278,6 +287,7 @@ return false;
 }
 
 // 把g的所有的极小特殊化式h加入到G中，其中h满足h与d一致，而且S的某个成员比h更特殊
+//d is sample ,   g in most general list
 void MiniSpecial(HypoValue g, HypoValue d)
 {
 int i,j;
@@ -287,8 +297,14 @@ for (i=0; i<g_Hypo.num; i++)
    {
     if (j!=d.value[i])
     {
+     //give the same value as g
      HypoValue* h = new HypoValue(g);
+     //cout << j <<  " " << h->value[0] << " " << endl;
+     //replace the value with j
      h->value[i] = j;
+     //in special hypo, there is more special
+     // and insert it into general hypo, later more general one will be
+     //removed from general hypo
      if (SMemberMoreSpecial(*h))
       g_G.push_front(h);
      else
@@ -436,22 +452,37 @@ for (i=0; i<g_sn; i++)
     
     for (it=g_G.begin(); it!=g_G.end(); it++)
     {
+    //compare positive case with general hypothsis, which init 
+    // as most general, all attributes given ALL value.
+    //
      if (!PositiveisConsistent(**it, g_sa[i].ev))
      {
       temp = it;
       it++;
+      //remove this item from list
       g_G.remove(*temp);
      }
     }
-    // 对S中每个与d不一致的假设s
+    // compare positive case with special hypothesis.
+    //which init as all NULL values.
     for (it=g_S.begin(); it!=g_S.end();)
     {
+    // if consistent, means the hypothesis already include it.
+    // else means this case conflict with item in special hypothesis
+    // find the mini general
      if (!PositiveisConsistent(**it, g_sa[i].ev))
      {
+     //combine both conflicted case, and to check if in general hypothesis,
+     //there is item more general than combined case. if yes, all combines
+     //item into special hypothesis
       MiniGeneral(**it, g_sa[i].ev);
       temp = it;
       it++;
+      //since this item conflict with a positive case, so remove it
       g_S.remove(*temp);        // 从S中移去s
+
+      //because combined item may added into special hypothesis, which may
+      //more general than already existed item, so we need remove it.
       RemoveMoreGeneralFromS();
      }
      else
@@ -467,18 +498,24 @@ for (i=0; i<g_sn; i++)
      {
       temp = it;
       it++;
+      //remove it from special hypothesis.
       g_S.remove(*temp);
      }
     }
     // 对G中每个与d不一致的假设g
     for (it=g_G.begin(); it!=g_G.end();)
     {
+    //for each item in general.
      if (!NagativeisConsistent(**it, g_sa[i].ev))
      {
+     //not consistent means an item in general hypo take it as positive case.
       MiniSpecial(**it, g_sa[i].ev);
       temp = it;
       it++;
+      //remove it, of course. since it is wrong.
       g_G.remove(*temp);    // 从G中移去g
+      //since several may added in, so need remove more special ones, just
+      //keep most general cases is enough.
       RemoveMoreSpecialFromG();
      }
      else

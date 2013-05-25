@@ -1,0 +1,64 @@
+	static FuncCache g_fc_main_func(main_func);	
+	static FuncCache g_fc_derivative_func(derivative_func);
+
+	static bool init_cache()
+	{
+		//	g_fc_main_func.set_func(main_func);
+		//	g_fc_derivative_func.set_func(derivative_func);
+		g_fc_main_func.build_cache(-10.0, 10.0, 0.01);
+		g_fc_derivative_func.build_cache(-10.0, 10.0, 0.01);
+		return true;
+	}
+
+	static void finalize_cache() {}
+
+	static ann_float main_func_cache(ann_float f)
+	{
+		return g_fc_main_func(f);
+	}
+
+	static ann_float derivative_func_cache(ann_float f)
+	{
+		return g_fc_derivative_func(f);
+	}
+
+	static void multi_main_func_cache(ann_float *src, ann_int len, ann_float *dst)
+	{
+		ann_float f;
+
+		assert(src != NULL);
+		if (dst == NULL)
+			dst = src;
+
+		for (int i=0; i<len; ++i) {
+			f = src[i];
+			dst[i] = g_fc_main_func(f);
+		}
+	}
+
+	static void multi_derivative_func_cache(ann_float *src, ann_int len, ann_float *dst)
+	{
+		ann_float f;
+
+		assert(src != NULL);
+		if (dst == NULL)
+			dst = src;
+
+		for (int i=0; i<len; ++i) {
+			f = src[i];
+			dst[i] = g_fc_derivative_func(f);
+		}
+	}
+
+	extern  AnnFuncGroup g_funcgroup_cache = {
+		_CACHE_FUNC_NAME,
+		_CACHE_FUNC_DESC,
+		init_cache,
+		finalize_cache,
+		main_func_cache,
+		derivative_func_cache,
+		NULL,
+		multi_main_func_cache,
+		multi_derivative_func_cache,
+		NULL
+	};
